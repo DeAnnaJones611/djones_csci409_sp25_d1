@@ -9,9 +9,14 @@ from Lines import Lines
 from Routes import Routes
 from Vehicles import Vehicles
 from controller import controller
+from api import login
+
 import httpx
 
 app = FastAPI()
+
+app.include_router(login.router)
+
 app.include_router (controller.router,
                     dependencies=[Depends(call_api_gateway)])
 
@@ -52,5 +57,3 @@ app.mount("/Routes", Routes.app)
 
 #http://127.0.0.1:8000/Vehicles/vehicles/
 app.mount("/Vehicles", Vehicles.app)
-
-
